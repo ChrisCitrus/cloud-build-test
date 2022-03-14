@@ -1,11 +1,12 @@
-FROM node:12 as build-deps
-WORKDIR /usr/src/app
-COPY package.json package-lock.json ./
-RUN npm
-COPY . ./
-RUN npm run build
-
-FROM nginx:1.12-alpine
-COPY --from=build-deps /usr/src/app/build /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+FROM node:14-alpine AS development
+ENV NODE_ENV development
+# Add a work directory
+WORKDIR /app
+# Cache and Install dependencies
+COPY package.json .
+COPY yarn.lock .
+RUN yarn install
+# Copy app files
+COPY . .
+# Build the app
+CMD [ "yarn", "start" ]
