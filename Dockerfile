@@ -9,4 +9,4 @@ RUN yarn install
 # Copy app files
 COPY . .
 # Build the app
-CMD [ "yarn", "start" ]
+CMD [ "yarn", "build" ]
