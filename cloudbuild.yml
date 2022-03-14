@@ -1,0 +1,5 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/eslint', '.' ]
+- name: gcr.io/cloud-builders/docker
+  args: ['run', '-w', '/app', 'gcr.io/$PROJECT_ID/eslint']
